@@ -15,6 +15,9 @@ public class User {
     @Column
     private String password;
 
+    @Column
+    private String accessKey;
+
     public int getId() {
         return id;
     }
@@ -37,5 +40,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAccessKey() {
+        return accessKey;
+    }
+
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
     }
 }

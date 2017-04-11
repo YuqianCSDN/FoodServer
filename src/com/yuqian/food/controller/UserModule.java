@@ -11,6 +11,7 @@ import org.nutz.mvc.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @IocBean
 public class UserModule {
@@ -27,12 +28,17 @@ public class UserModule {
         }
         User user=dao.fetch(User.class, Cnd.where("userName","=",userName).and("password","=",password));
         if(user!=null){
-            session.setAttribute("user", user);
-            return user;
-           // return "jsp:/index" ;
+            HashMap<String,Object> hashMap=new HashMap<>();
+            hashMap.put("msg","success");
+            hashMap.put("state",1);
+            hashMap.put("userModel",user);
+            return hashMap;
         }else {
-            request.setAttribute("error_msg", "用户名或者密码不正确");
-            return "jsp:/public/login";
+            HashMap<String,Object> hashMap=new HashMap<>();
+            hashMap.put("msg","用户名或密码错误！");
+            hashMap.put("state",0);
+            return hashMap;
+
         }
     }
 }
