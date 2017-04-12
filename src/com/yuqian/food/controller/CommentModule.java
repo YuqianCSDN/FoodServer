@@ -1,5 +1,9 @@
 package com.yuqian.food.controller;
 
+import com.yuqian.food.entity.Comment;
+import com.yuqian.food.entity.Food;
+import com.yuqian.food.entity.User;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.entity.Record;
@@ -48,5 +52,30 @@ public class CommentModule {
         hashMap.put("comments",list);
         return hashMap;
     }
-
+    @At("addComment")
+    @Ok("json")
+    @Fail("http:500")
+    public Object addComment(@Param("userId")Integer userid,@Param("foodId")Integer foodId,@Param("comment")String comment_str){
+        HashMap<String,Object> hashMap=new HashMap<>();
+        if(userid==null||foodId==null||comment_str==null||"".equals(comment_str)){
+            hashMap.put("msg","参数错误");
+            hashMap.put("state",0);
+            return hashMap;
+        }
+        User user=dao.fetch(User.class, Cnd.where("id","=",userid));
+        Food food=dao.fetch(Food.class,Cnd.where("id","=",foodId));
+        if(user==null||food==null){
+            hashMap.put("msg","参数错误");
+            hashMap.put("state",0);
+            return hashMap;
+        }
+        Comment comment=new Comment();
+        comment.setFoodComment(comment_str);
+        comment.setFoodId(foodId);
+        comment.setId(userid);
+        dao.insert(comment);
+        hashMap.put("msg","添加评论成功");
+        hashMap.put("state",1);
+        return hashMap;
+    }
 }
