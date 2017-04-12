@@ -19,6 +19,10 @@ public class User {
     private String accessKey;
 
     @Column
+    private String userPhotoUrl;
+
+
+    @Column
     private int type;
 
     public int getType() {
@@ -59,5 +63,13 @@ public class User {
 
     public void setAccessKey(String accessKey) {
         this.accessKey = accessKey;
+    }
+
+    public String getUserPhotoUrl() {
+        return userPhotoUrl;
+    }
+
+    public void setUserPhotoUrl(String userPhotoUrl) {
+        this.userPhotoUrl = userPhotoUrl;
     }
 }

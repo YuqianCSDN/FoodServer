@@ -35,7 +35,7 @@ public class CommentModule {
         int pageNumber=0,pageSize=100;
         Pager pager = dao.createPager(pageNumber, pageSize);
 
-        Sql sql = Sqls.queryRecord("select a.id,a.userName,b.* from user a left join comment b on a.id = b.userId where b.foodid= "+foodId+"");
+        Sql sql = Sqls.queryRecord("select a.id,a.userName,a.userPhotoUrl,b.* from user a left join comment b on a.id = b.userId where b.foodid= "+foodId+"");
         dao.execute(sql);
         List<Record> list = sql.getList(Record.class);
         if(list.isEmpty()){
