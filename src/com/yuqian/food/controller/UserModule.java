@@ -13,12 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-@Filters(@By(type = AuthorityFilter.class ,args={"ioc:authorityFilter"}))
 @IocBean
 public class UserModule {
     @Inject
     Dao dao;
-    @Filters
     @At("public/login")
     @Ok("json")
     @Fail("http:500")
@@ -48,7 +46,7 @@ public class UserModule {
 
         }
     }
-    @Filters
+
     @At("public/autoLogin")
     @Ok("json")
     @Fail("http:500")
