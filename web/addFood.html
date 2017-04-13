@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>文件解析</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="public/css/addfood.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+	<!-- main -->
+		<div class="main">
+			<h1>上传中文文件</h1>
+			<div class="input_form">
+				<form  action="addFood.php" enctype="multipart/form-data" method="POST" >
+                    <input type="text" name="foodName" value="西红柿炒鸡蛋"/>
+					<input type="text" name="foodPrice" value="11"/>
+					<input type="text" name="foodDescribe" value="好吃的西红柿炒鸡蛋"/>
+					<input name="userName" placeholder="userName" type="text" placeholder="Username">
+                    <input placeholder="上传中文文件" type="file" name="foodPictureFile"/>
+                    <input placeholder="提交" type="submit" name="department">
+				</form>
+			</div>
+
+		</div>
+		<div class="footer">
+		</div>
+</body>
+</html>

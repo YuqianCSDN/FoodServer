@@ -3,6 +3,7 @@ package com.yuqian.food.controller;
 import com.yuqian.food.entity.Food;
 import com.yuqian.food.util.MD5;
 import com.yuqian.food.util.QiNiuUpPhotoUtil;
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.QueryResult;
 import org.nutz.dao.pager.Pager;
@@ -10,6 +11,7 @@ import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.*;
 import org.nutz.mvc.upload.TempFile;
+import org.nutz.mvc.upload.UploadAdaptor;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,11 +29,11 @@ public class FoodModule {
     @Ok("json")
     @Fail("http:500")
     @GET
-    public Object getFoodList()
+    public Object getFoodList(@Param("restaurantNum")Integer restaurantNum)
     {
         int pageNumber=0,pageSize=100;
         Pager pager = dao.createPager(pageNumber, pageSize);
-        List<Food> list = dao.query(Food.class, null, pager);
+        List<Food> list = dao.query(Food.class, Cnd.where("restaurantNum","=",restaurantNum), pager);
         pager.setRecordCount(dao.count(Food.class));
         QueryResult queryResult= new QueryResult(list, pager);
         HashMap<String,Object> hashMap=new HashMap<>();
@@ -46,16 +48,18 @@ public class FoodModule {
 
         return hashMap;
     }
+    @AdaptBy(type = UploadAdaptor.class, args = { "ioc:myUpload" })
     @At("addFood")
     @Ok("json")
     @Fail("http:500")
     @POST
-    public Object addFood(@Param("foodName")String foodName,
+    public Object addFood(@Param("restaurantNum") Integer restaurantNum,
+                          @Param("foodName")String foodName,
                           @Param("foodPrice")String foodPrice,
                           @Param("foodDescribe")String foodDescribe,
                           @Param("foodPictureFile")TempFile foodPictureFile){
         HashMap<String,Object> hashMap=new HashMap<>();
-        if(foodName==null||"".equals(foodName)||foodPrice==null||"".equals(foodPrice)
+        if(restaurantNum==null||foodName==null||"".equals(foodName)||foodPrice==null||"".equals(foodPrice)
                 ||foodDescribe==null||"".equals(foodDescribe)) {
             hashMap.put("msg","参数错误");
             hashMap.put("state",0);
@@ -70,6 +74,7 @@ public class FoodModule {
             hashMap.put("msg","添加成功");
             hashMap.put("state",1);
             Food food=new Food();
+            food.setRestaurantNum(restaurantNum);
             food.setFoodDescribe(foodDescribe);
             food.setFoodName(foodName);
             food.setFoodPhotoUrl(photoUrl);

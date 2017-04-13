@@ -22,6 +22,8 @@ public class Food {
     @Column
     private String foodPhotoUrl;
 
+    @Column Integer restaurantNum;
+
     public int getId() {
         return id;
     }
@@ -60,5 +62,9 @@ public class Food {
 
     public void setFoodPhotoUrl(String foodPhotoUrl) {
         this.foodPhotoUrl = foodPhotoUrl;
+    }
+
+    public void setRestaurantNum(Integer restaurantNum) {
+        this.restaurantNum = restaurantNum;
     }
 }
