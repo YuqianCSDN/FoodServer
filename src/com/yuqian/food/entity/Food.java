@@ -1,6 +1,7 @@
 package com.yuqian.food.entity;
 
 import org.nutz.dao.entity.annotation.Column;
+import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Table;
 
 /**
@@ -8,7 +9,7 @@ import org.nutz.dao.entity.annotation.Table;
  */
 @Table("food")
 public class Food {
-    @Column
+    @Id
     private int id;
     @Column
     private String foodName;
